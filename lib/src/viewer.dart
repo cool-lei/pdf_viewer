@@ -199,19 +199,23 @@ class _PDFViewerState extends State<PDFViewer> {
   }
 
   void _pickPage() {
-    print('pick page');
     showDialog<int>(
         context: context,
         builder: (BuildContext context) {
-          print('page picked');
-          return NumberPicker(
-            minValue: 1,
-            maxValue: widget.document.count,
-            value: _pageNumber,
-            onChanged: (value) {
-              _pageNumber = value;
-              _jumpToPage();
-            },
+          return Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: NumberPicker(
+              minValue: 1,
+              maxValue: widget.document.count,
+              value: _pageNumber,
+              decoration: BoxDecoration(
+                  color: Colors.white
+              ),
+              onChanged: (value) {
+                _pageNumber = value;
+                _jumpToPage();
+              },
+            ),
           );
         });
   }
