@@ -199,9 +199,11 @@ class _PDFViewerState extends State<PDFViewer> {
   }
 
   void _pickPage() {
+    print('pick page');
     showDialog<int>(
         context: context,
         builder: (BuildContext context) {
+          print('page picked');
           return NumberPicker(
             minValue: 1,
             maxValue: widget.document.count,
