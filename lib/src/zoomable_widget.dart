@@ -331,10 +331,10 @@ class _ZoomableChild extends ImplicitlyAnimatedWidget {
 }
 
 class _ZoomableChildState extends AnimatedWidgetBaseState<_ZoomableChild> {
-  late DoubleTween _zoom;
-  late OffsetTween _panOffset;
+  DoubleTween? _zoom;
+  OffsetTween? _panOffset;
   // OffsetTween _zoomOriginOffset;
-  late DoubleTween _rotation;
+  DoubleTween? _rotation;
 
   @override
   void forEachTween(visitor) {
@@ -350,14 +350,14 @@ class _ZoomableChildState extends AnimatedWidgetBaseState<_ZoomableChild> {
   Widget build(BuildContext context) {
     return Transform(
       alignment: Alignment.center,
-      origin: Offset(-_panOffset.evaluate(animation)!.dx,
-          -_panOffset.evaluate(animation)!.dy),
+      origin: Offset(-(_panOffset?.evaluate(animation)?.dx ?? 0.0),
+          -(_panOffset?.evaluate(animation)?.dy ?? 0.0)),
       transform: Matrix4.identity()
-        ..translate(_panOffset.evaluate(animation)!.dx,
-            _panOffset.evaluate(animation)!.dy)
-        ..scale(_zoom.evaluate(animation), _zoom.evaluate(animation)),
+        ..translate(_panOffset?.evaluate(animation)?.dx ?? 0.0,
+            _panOffset?.evaluate(animation)?.dy ?? 0.0)
+        ..scale(_zoom?.evaluate(animation) ?? 1.0, _zoom?.evaluate(animation) ?? 1.0),
       child: Transform.rotate(
-        angle: _rotation.evaluate(animation)!,
+        angle: _rotation?.evaluate(animation) ?? 0.0,
         child: widget.child,
       ),
     );
