@@ -202,20 +202,20 @@ class _PDFViewerState extends State<PDFViewer> {
     showDialog<int>(
         context: context,
         builder: (BuildContext context) {
-          return Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: NumberPicker(
-              minValue: 1,
-              maxValue: widget.document.count,
-              value: _pageNumber,
-              decoration: BoxDecoration(
-                  color: Colors.white
+          return Container(
+            height: 200,
+            child: Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: NumberPicker(
+                minValue: 1,
+                maxValue: widget.document.count,
+                value: _pageNumber,
+                onChanged: (value) {
+                  _pageNumber = value;
+                  _jumpToPage();
+                },
               ),
-              onChanged: (value) {
-                _pageNumber = value;
-                _jumpToPage();
-              },
-            ),
+            )
           );
         });
   }
