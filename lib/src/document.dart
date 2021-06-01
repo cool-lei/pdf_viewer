@@ -61,7 +61,7 @@ class PDFDocument {
     File file;
     try {
       var dir = await getApplicationDocumentsDirectory();
-      file = "${dir.path}/file.pdf".fileFromPath();
+      file = File.fromUri(Uri.file("${dir.path}/file.pdf"));
       var data = await rootBundle.load(asset);
       var bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
