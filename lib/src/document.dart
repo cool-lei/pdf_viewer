@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 
 class PDFDocument {
   static const MethodChannel _channel =
-      const MethodChannel('flutter_plugin_pdf_viewer');
+  const MethodChannel('flutter_plugin_pdf_viewer');
 
   String? _filePath;
   late int count;
@@ -46,7 +46,7 @@ class PDFDocument {
     document._filePath = f.path;
     try {
       var pageCount =
-          await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
+      await _channel.invokeMethod('getNumberOfPages', {'filePath': f.path});
       document.count = document.count = int.parse(pageCount);
     } catch (e) {
       throw Exception('Error reading PDF!');
@@ -61,7 +61,7 @@ class PDFDocument {
     File file;
     try {
       var dir = await getApplicationDocumentsDirectory();
-      file = File("${dir.path}/file.pdf");
+      file = "${dir.path}/file.pdf".fileFromPath();
       var data = await rootBundle.load(asset);
       var bytes = data.buffer.asUint8List();
       await file.writeAsBytes(bytes, flush: true);
@@ -144,4 +144,10 @@ class PDFDocument {
       );
     }).asStream() as Stream<PDFPage?>;
   }
+}
+
+
+extension FileExtension on String {
+
+  File fileFromPath() => File(this);
 }
